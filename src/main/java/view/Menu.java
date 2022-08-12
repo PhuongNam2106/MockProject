@@ -19,8 +19,9 @@ public class Menu {
     }
     public int crudMenu(){
         System.out.println("1. Create products.");
-        System.out.println("2. Update products.");
-        System.out.println("3. Delete products.");
+        System.out.println("2. Show product list");
+        System.out.println("3. Update products.");
+        System.out.println("4. Delete products.");
         System.out.println("0. Back.");
         return scanner.nextInt();
     }

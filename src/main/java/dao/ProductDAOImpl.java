@@ -3,10 +3,9 @@ package dao;
 import model.Product;
 import util.DBUtil;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.Timestamp;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDAOImpl implements ProductDAO{
     @Override
@@ -32,4 +31,38 @@ public class ProductDAOImpl implements ProductDAO{
             return 0;
         }
     }
+
+    @Override
+    public List<Product> showAll() {
+        try (Connection connection = DBUtil.getInstance().getConnection()) {
+            String sql = "SELECT * FROM PRODUCT";
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            List<Product> products = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("PRODUCT_ID");
+                String name = resultSet.getString("NAME");
+                String description = resultSet.getString("DESCRIPTION");
+                double price = resultSet.getDouble("PRICE");
+                double discountPrice = resultSet.getDouble("DISCOUNT_PRICE");
+                int stock = resultSet.getInt("STOCK");
+                int sold = resultSet.getInt("SOLD");
+                Date createdDate = resultSet.getDate("CREATE_DATE");
+                String status = resultSet.getString("STATUS");
+
+
+                products.add(new Product(id, name, description,price,discountPrice,stock,sold,createdDate,status));
+            }
+
+            return products;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return new ArrayList<>();
+        }
+    }
+
+
 }
