@@ -1,6 +1,9 @@
 package controller;
 
+import model.Customer;
 import model.Product;
+import service.CustomerService;
+import service.CustomerServiceImpl;
 import service.ProductService;
 import service.ProductServiceImpl;
 import view.Menu;
@@ -14,6 +17,7 @@ public class Main {
         System.out.printf("%30s %30s %15s %15s %10s %10s %10s\n","Name","Description","Price","Discount percent","Stock","Sold","Status");
     }
     private static final ProductService productService = new ProductServiceImpl();
+    private static final CustomerService customerService = new CustomerServiceImpl();
     public static void main(String[] args) throws ParseException {
         int menu;
         do {
@@ -49,7 +53,11 @@ public class Main {
                         }
                     }while (crudMenu != 0);
                     break;
-                case 2: break;
+                case 2:
+                    Customer customer = new Customer();
+                    customer.input();
+                    customerService.createCustomer(customer);
+                    break;
 
                 case 0: break;
 
