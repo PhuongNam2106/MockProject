@@ -146,4 +146,9 @@ public class Product {
         System.out.println("Enter product status: ");
         status=sc.nextLine();
     }
+
+    public void output()
+    {
+        System.out.printf("%30s %30s %15.2f %15.2f %10d %10d %10s\n",name,description,price,discountPrice,stock,sold,status);
+    }
 }
