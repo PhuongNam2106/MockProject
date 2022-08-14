@@ -149,6 +149,6 @@ public class Product {
 
     public void output()
     {
-        System.out.printf("%30s %30s %15.2f %15.2f %10d %10d %10s\n",name,description,price,discountPrice,stock,sold,status);
+        System.out.printf("%10d %30s %30s %15.2f %15.2f %10d %10d %10s\n",productId,name,description,price,discountPrice,stock,sold,status);
     }
 }
