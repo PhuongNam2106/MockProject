@@ -1,9 +1,6 @@
 package controller;
-
-
 import jdk.swing.interop.SwingInterOpUtils;
 import model.Customer;
-
 import model.Product;
 import service.CustomerService;
 import service.CustomerServiceImpl;
