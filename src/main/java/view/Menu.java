@@ -1,5 +1,7 @@
 package view;
 
+import model.Customer;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -25,4 +27,17 @@ public class Menu {
         System.out.println("0. Back.");
         return scanner.nextInt();
     }
+
+//    public Customer customerMenu() {
+//        System.out.print("Customer name:");
+//        String name = scanner.nextLine();
+//        System.out.print("Customer email:");
+//        String email = scanner.nextLine();
+//        System.out.print("Customer phone number:");
+//        String phoneNumber = scanner.nextLine();
+//        System.out.print("Customer address id:");
+//        int addressId = scanner.nextInt();
+//
+//        return new Customer(name, email, phoneNumber, addressId);
+//    }
 }

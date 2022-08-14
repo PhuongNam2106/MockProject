@@ -1,22 +1,24 @@
 package model;
 
+import java.util.Scanner;
+
 public class Customer {
     private int customerId;
     private String fullName, email;
-    private int phoneNumber;
+    private String phoneNumber;
     private  int addressId;
-
+    private Scanner scanner = new Scanner(System.in);
     public Customer() {
     }
 
-    public Customer(String fullName, String email, int phoneNumber, int addressId) {
+    public Customer(String fullName, String email, String phoneNumber, int addressId) {
         this.fullName = fullName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.addressId = addressId;
     }
 
-    public Customer(int customerId, String fullName, String email, int phoneNumber, int addressId) {
+    public Customer(int customerId, String fullName, String email, String phoneNumber, int addressId) {
         this.customerId = customerId;
         this.fullName = fullName;
         this.email = email;
@@ -48,11 +50,11 @@ public class Customer {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -73,5 +75,16 @@ public class Customer {
                 ", phoneNumber=" + phoneNumber +
                 ", addressId=" + addressId +
                 '}';
+    }
+    public void input(){
+        System.out.println("Customer information:");
+        System.out.print("Customer name:");
+        fullName = scanner.nextLine();
+        System.out.print("Customer email:");
+        email = scanner.nextLine();
+        System.out.print("Customer phone number:");
+        phoneNumber = scanner.nextLine();
+        System.out.print("Customer address id:");
+        addressId = scanner.nextInt();
     }
 }
