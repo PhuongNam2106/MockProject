@@ -7,7 +7,12 @@ public class OrderDetail {
 
     public OrderDetail() {
     }
-
+    public OrderDetail(int cartId, int quantity, double total, int productId) {
+        this.cartId = cartId;
+        this.quantity = quantity;
+        this.total = total;
+        this.productId = productId;
+    }
     public OrderDetail(int cartId, int quantity, double total, int orderId, int productId) {
         this.cartId = cartId;
         this.quantity = quantity;
