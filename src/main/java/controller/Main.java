@@ -2,10 +2,8 @@ package controller;
 import jdk.swing.interop.SwingInterOpUtils;
 import model.Customer;
 import model.Product;
-import service.CustomerService;
-import service.CustomerServiceImpl;
-import service.ProductService;
-import service.ProductServiceImpl;
+import service.*;
+import service.impl.OrderServiceImpl;
 import view.Menu;
 
 import java.text.ParseException;
@@ -22,7 +20,7 @@ public class Main {
     static Scanner sc = new Scanner(System.in);
 
     private static final CustomerService customerService = new CustomerServiceImpl();
-
+    private static final OrderService orderService = new OrderServiceImpl();
     public static void main(String[] args) throws ParseException {
         int menu;
         do {
@@ -90,7 +88,8 @@ public class Main {
                     customer.input();
                     customerService.createCustomer(customer);
                     break;
-
+                case 3:
+                    orderService.showOrder();
                 case 0: break;
 
                 default:
