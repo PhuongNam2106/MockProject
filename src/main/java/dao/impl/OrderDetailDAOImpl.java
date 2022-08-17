@@ -14,7 +14,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     @Override
     public List<OrderDetail> showOrderDetail(int id) {
         try (Connection connection = DBUtil.getInstance().getConnection()) {
-            String sql = "SELECT * FROM ORDER_DETAIL INNER JOIN ORDERS ON ORDER_DETAIL.ORDER_ID=  ORDERS.ORDER_ID WHERE ORDERS.ORDER_ID =" +(id+1);
+            String sql = "SELECT * FROM ORDER_DETAIL INNER JOIN ORDERS ON ORDER_DETAIL.ORDER_ID=  ORDERS.ORDER_ID WHERE ORDERS.ORDER_ID =" +(id);
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);

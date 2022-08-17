@@ -71,4 +71,8 @@ public class OrderDetail {
                 ", productId=" + productId +
                 '}';
     }
+    public void output()
+    {
+        System.out.printf("\n%15d %10d %15.2f %15d %15d",cartId,quantity,total,orderId, productId);
+    }
 }
