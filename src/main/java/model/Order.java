@@ -2,10 +2,10 @@ package model;
 
 import java.util.Date;
 
-public class Order extends Customer{
+public class Order {
     public int orderId;
     private String name;
-    private String phoneNumber;
+    private int phoneNumber;
     private String detailAddress;
     private double total;
     private Date orderDate;
@@ -14,20 +14,7 @@ public class Order extends Customer{
     public Order() {
     }
 
-    public Order(int orderId, String name, String phoneNumber1, String detailAddress, double total, Date orderDate, int customerId,String fullName,  int addressID, int discountId) {
-        super(fullName);
-        this.orderId = orderId;
-        this.name = name;
-        this.phoneNumber = phoneNumber1;
-        this.detailAddress = detailAddress;
-        this.total = total;
-        this.orderDate = orderDate;
-        this.customerId = customerId;
-        this.addressID = addressID;
-        this.discountId = discountId;
-    }
-
-    public Order(int orderId, String name, String phoneNumber, String detailAddress, double total, Date orderDate, int customerId, int addressID, int discountId) {
+    public Order(int orderId, String name, int phoneNumber, String detailAddress, double total, Date orderDate, int customerId, int addressID, int discountId) {
         this.orderId = orderId;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -55,11 +42,11 @@ public class Order extends Customer{
         this.name = name;
     }
 
-    public String getPhoneNumber() {
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -121,7 +108,6 @@ public class Order extends Customer{
                 ", total=" + total +
                 ", orderDate=" + orderDate +
                 ", customerId=" + customerId +
-                ",customerName="+ super.getFullName()+
                 ", addressID=" + addressID +
                 ", discountId=" + discountId +
                 '}';
