@@ -16,7 +16,6 @@ public class Menu {
     public int mainmMenu(){
         System.out.println("1. CRUD products.");
         System.out.println("2. Order products.");
-        System.out.println("3. Show Order");
         System.out.println("0. Exit.");
         return scanner.nextInt();
     }

@@ -11,10 +11,6 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String fullName) {
-        this.fullName = fullName;
-    }
-
     public Customer(String fullName, String email, String phoneNumber, int addressId) {
         this.fullName = fullName;
         this.email = email;
