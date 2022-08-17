@@ -126,4 +126,8 @@ public class Order extends Customer{
                 ", discountId=" + discountId +
                 '}';
     }
+    public void output()
+    {
+        System.out.printf("\n%10d %30s %15s %30s %10s %15s %15d %30s %15s %10s",orderId,name,phoneNumber,detailAddress,total,orderDate,customerId,getFullName(),addressID,discountId);
+    }
 }
