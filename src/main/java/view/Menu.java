@@ -14,9 +14,10 @@ public class Menu {
         return instance;
     }
     public int mainmMenu(){
-        System.out.println("1. CRUD products.");
-        System.out.println("2. Order products.");
-        System.out.println("3. Show Order");
+        System.out.println("1. CRUD products(For admin).");
+        System.out.println("2. Order products(For customer).");
+        System.out.println("3. Show Order(For admin).");
+        System.out.println("4. Show Customer(For admin).");
         System.out.println("0. Exit.");
         return scanner.nextInt();
     }

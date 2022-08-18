@@ -92,4 +92,9 @@ public class Customer {
         System.out.print("Customer address id:");
         addressId = scanner.nextInt();
     }
+
+    public void output()
+    {
+        System.out.printf("\n%15d %30s %30s %15s %15d",customerId,fullName,email,phoneNumber,addressId);
+    }
 }
