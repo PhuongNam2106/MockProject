@@ -1,11 +1,13 @@
 package dao;
 
 import model.Customer;
+import model.Product;
 import util.DBUtil;
 import view.Menu;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO{
     @Override
@@ -25,6 +27,36 @@ public class CustomerDAOImpl implements CustomerDAO{
             e.printStackTrace();
 
             return 0;
+        }
+    }
+
+    @Override
+    public List<Customer> showAll() {
+        try (Connection connection = DBUtil.getInstance().getConnection()) {
+            String sql = "SELECT * FROM CUSTOMERS";
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            List<Customer> customers = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("CUSTOMER_ID");
+                String fullName = resultSet.getString("FULL_NAME");
+                String email = resultSet.getString("EMAIL");
+                String phoneNumber = resultSet.getString("PHONE_NUBER");
+
+                int addressID = resultSet.getInt("ADDRESS_ID");
+
+
+
+                customers.add(new Customer(id, fullName, email,phoneNumber,addressID));
+            }
+
+            return customers;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return new ArrayList<>();
         }
     }
 }

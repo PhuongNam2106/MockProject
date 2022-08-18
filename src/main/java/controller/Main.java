@@ -8,6 +8,7 @@ import service.*;
 import service.impl.OrderServiceImpl;
 import view.Menu;
 
+import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Scanner;
@@ -17,6 +18,11 @@ public class Main {
     public static void showTitle()
     {
         System.out.printf("%10s %30s %30s %15s %15s %10s %10s %10s\n","ID","Name","Description","Price","Discount percent","Stock","Sold","Status");
+    }
+
+    public static void showTitleCustomer()
+    {
+        System.out.printf("\n%15s %30s %30s %15s %15s\n","Customer ID","Full name","Email","Phone number","Address ID");
     }
     private static final ProductService productService = new ProductServiceImpl();
 
@@ -36,61 +42,69 @@ public class Main {
             menu  = Menu.getInstance().mainmMenu();
             switch (menu){
                 case 1:
-                    int crudMenu;
-                    do {
-                        crudMenu = Menu.getInstance().crudMenu();
-                        switch (crudMenu){
-                            case 1:{
-                                System.out.println("~~~CREATE PRODUCT~~~");
-                                Product product = new Product();
-                                product.input();
-                                productService.save(product);
-                                System.out.println("\t ADD PRODUCT SUCCESS!!!");
-                            }
-                                break;
-                            case 2:{
-                                List<Product> products = productService.showAll();
-                                showTitle();
-                                for (Product product:products) {
-                                    product.output();
-                                }
-                            }
-                                break;
-                            case 3:
-                            {
-                                System.out.println("~~~UPDATE PRODUCT~~~");
-                                System.out.print("Enter ID product you want to update: ");
-                                int id = Integer.parseInt(sc.nextLine());
-                                if(productService.checkID(id)==true)
-                                {
+                    String pass ;
+                    System.out.print("Enter admin pass: ");
+                    pass=sc.nextLine();
+                    if (pass.compareToIgnoreCase("admin123")==0)
+                    {
+                        int crudMenu;
+                        do {
+                            crudMenu = Menu.getInstance().crudMenu();
+                            switch (crudMenu){
+                                case 1:{
+                                    System.out.println("~~~CREATE PRODUCT~~~");
                                     Product product = new Product();
                                     product.input();
-                                    productService.update(product,id);
-                                    System.out.println("\t UPDATE SUCCESS!!!");
+                                    productService.save(product);
+                                    System.out.println("\t ADD PRODUCT SUCCESS!!!");
                                 }
-                                else System.out.println("\t!!!THERE IS HAS NO THIS PRODUCT ID!!!");
-
-                            }
                                 break;
-                            case 4:
-                            {
-                                System.out.println("~~~DELETE PRODUCT~~~");
-                                System.out.print("Enter ID product you want to update: ");
-                                int id = Integer.parseInt(sc.nextLine());
-                                if(productService.checkID(id)==true)
+                                case 2:{
+                                    List<Product> products = productService.showAll();
+                                    showTitle();
+                                    for (Product product:products) {
+                                        product.output();
+                                    }
+                                }
+                                break;
+                                case 3:
                                 {
-                                    productService.delete(id);
-                                    System.out.println("\t DELETE SUCCESS!!!");
+                                    System.out.println("~~~UPDATE PRODUCT~~~");
+                                    System.out.print("Enter ID product you want to update: ");
+                                    int id = Integer.parseInt(sc.nextLine());
+                                    if(productService.checkID(id)==true)
+                                    {
+                                        Product product = new Product();
+                                        product.input();
+                                        productService.update(product,id);
+                                        System.out.println("\t UPDATE SUCCESS!!!");
+                                    }
+                                    else System.out.println("\t!!!THERE IS HAS NO THIS PRODUCT ID!!!");
+
                                 }
-                                else System.out.println("\t!!!THERE IS HAS NO THIS PRODUCT ID!!!");
+                                break;
+                                case 4:
+                                {
+                                    System.out.println("~~~DELETE PRODUCT~~~");
+                                    System.out.print("Enter ID product you want to update: ");
+                                    int id = Integer.parseInt(sc.nextLine());
+                                    if(productService.checkID(id)==true)
+                                    {
+                                        productService.delete(id);
+                                        System.out.println("\t DELETE SUCCESS!!!");
+                                    }
+                                    else System.out.println("\t!!!THERE IS HAS NO THIS PRODUCT ID!!!");
+                                }
+                                break;
+                                default:
+                                    System.out.println();
+                                    System.out.println("Only choice 0 -> 3");
+                                    break;
                             }
-                                break;
-                            default:
-                                System.out.println();
-                                System.out.println("Only choice 0 -> 3");
-                                break;
-                        }
-                    }while (crudMenu != 0);
+                        }while (crudMenu != 0);
+                    }
+                    else System.out.println("Admin pass incorrect");
+
                     break;
                 case 2:
                     Customer customer = new Customer();
@@ -109,7 +123,33 @@ public class Main {
                     }while (!ans.equals("N") && !ans.equals("n"));
                     break;
                 case 3:
-                    orderService.showOrder();
+                {
+                    System.out.print("Enter admin pass: ");
+                    pass=sc.nextLine();
+                    if (pass.compareToIgnoreCase("admin123")==0)
+                    {
+                        orderService.showOrder();
+                    }
+                    else System.out.println("Admin pass incorrect");
+                }
+
+                    break;
+                case 4:{
+                    System.out.print("Enter admin pass: ");
+                    pass=sc.nextLine();
+                    if (pass.compareToIgnoreCase("admin123")==0)
+                    {
+
+                        List<Customer> customerList = customerService.showAll();
+                        showTitleCustomer();
+                        for (Customer customers :customerList) {
+                            customers.output();
+                        }
+                        System.out.println();
+                    }
+                    else System.out.println("Admin pass incorrect");
+
+                }break;
                 case 0: break;
 
                 default:
