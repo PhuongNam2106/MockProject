@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class OrderDetail {
     public static void showTitle()
     {
-        System.out.printf("%30s %30s %15s %15s %10s %10s %10s\n","Name","Description","Price","Discount percent","Stock","Sold","Status");
+        System.out.printf("%15s %30s %30s %15s %15s %10s %10s %10s\n","Product ID","Name","Description","Price","Discount percent","Stock","Sold","Status");
     }
     private static final ProductService productService = new ProductServiceImpl();
     private int cartId, quantity;
@@ -19,7 +19,12 @@ public class OrderDetail {
 
     public OrderDetail() {
     }
-
+    public OrderDetail(int cartId, int quantity, double total, int productId) {
+        this.cartId = cartId;
+        this.quantity = quantity;
+        this.total = total;
+        this.productId = productId;
+    }
     public OrderDetail(int cartId, int quantity, double total, int orderId, int productId) {
         this.cartId = cartId;
         this.quantity = quantity;
@@ -78,11 +83,11 @@ public class OrderDetail {
                 ", productId=" + productId +
                 '}';
     }
-    public void input(){
+    public void input() {
 
         List<Product> products = productService.showAll();
         showTitle();
-        for (Product product:products) {
+        for (Product product : products) {
             product.output();
         }
 
@@ -90,6 +95,11 @@ public class OrderDetail {
         productId = Integer.parseInt(scanner.nextLine());
         System.out.print("Enter quantity: ");
         quantity = Integer.parseInt(scanner.nextLine());
+
+    }
+    public void output()
+    {
+        System.out.printf("\n%15d %10d %15.2f %15d %15d",cartId,quantity,total,orderId, productId);
 
     }
 }

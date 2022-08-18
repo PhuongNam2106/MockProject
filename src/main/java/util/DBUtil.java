@@ -14,7 +14,7 @@ public class DBUtil {
         try {
             String url = "jdbc:sqlserver://localhost:1433;databaseName=MOCKDB;encrypt=true;trustServerCertificate=true;";
             String username = "sa";
-            String password = "trunglove11";
+            String password = "nam01682015468";
 
             return DriverManager.getConnection(url, username, password);
         } catch (Exception e) {

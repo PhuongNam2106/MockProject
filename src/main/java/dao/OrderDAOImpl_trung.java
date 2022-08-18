@@ -13,7 +13,7 @@ public class OrderDAOImpl_trung implements OrderDAO_trung {
             String sql = "INSERT INTO ORDERS VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, order.getName());
-            preparedStatement.setInt(2, order.getPhoneNumber());
+            preparedStatement.setString(2, order.getPhoneNumber());
             preparedStatement.setString(3, order.getDetailAddress());
             preparedStatement.setDouble(4, finalTotalOrder(order));
             preparedStatement.setDate(5, sqlDate = new java.sql.Date(order.getOrderDate().getTime()));

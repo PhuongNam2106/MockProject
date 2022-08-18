@@ -64,5 +64,75 @@ public class ProductDAOImpl implements ProductDAO{
         }
     }
 
+    @Override
+    public int update(Product product, int id) {
+        try(Connection connection = DBUtil.getInstance().getConnection()) {
+            java.sql.Date sqlDate ;
+            String sql = "UPDATE PRODUCT SET NAME=?, DESCRIPTION=?, PRICE=?, DISCOUNT_PRICE=?, STOCK=?, SOLD=?, CREATE_DATE=?, STATUS=? WHERE PRODUCT_ID="+id;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, product.getName());
+            preparedStatement.setString(2, product.getDescription());
+            preparedStatement.setDouble(3, product.getPrice());
+            preparedStatement.setDouble(4, product.getDiscountPrice());
+            preparedStatement.setInt(5, product.getStock());
+            preparedStatement.setInt(6, product.getSold());
+            preparedStatement.setDate(7,  sqlDate = new java.sql.Date(product.getCreateDate().getTime()));
+
+            preparedStatement.setString(8, product.getStatus());
+
+            return preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return 0;
+        }
+    }
+
+    @Override
+    public boolean checkID(int id) {
+       // List<Integer> idList = new ArrayList<>();
+        try (Connection connection = DBUtil.getInstance().getConnection()) {
+            String sql = "SELECT PRODUCT_ID FROM PRODUCT";
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            List<Integer> idList = new ArrayList<>();
+            while (resultSet.next()) {
+                int productId = resultSet.getInt("PRODUCT_ID");
+                idList.add(productId);
+            }
+            int dem=0;
+            for (Integer ID:idList) {
+                if(ID==id)
+                {
+                    dem++;
+                    break;
+                }
+            }
+            if(dem!=0)
+                return true;
+            else return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return false;
+        }
+    }
+
+    @Override
+    public int delete(int id) {
+        try(Connection connection = DBUtil.getInstance().getConnection()) {
+            java.sql.Date sqlDate ;
+            String sql = "Delete from PRODUCT WHERE PRODUCT_ID="+id;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            return preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return 0;
+        }
+    }
+
 
 }
