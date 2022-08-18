@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
         while ("y".equalsIgnoreCase(result)) {
             System.out.print("Enter the order id you want to see details:");
             int chose = new Scanner(System.in).nextInt();
-            if (chose > 0 && chose < list.size()) {
+            if (chose > 0 && chose <= list.size()) {
                 System.out.printf("%15s %10s %15s %15s %15s","Cart ID","Quantity","Total","Order ID", "Product ID");
                 List<OrderDetail> orderDetailList = orderDetailDAO.showOrderDetail(chose);
                 for (int i = 0; i < orderDetailList.size(); i++) {

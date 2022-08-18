@@ -1,6 +1,9 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Order extends Customer{
     public int orderId;
@@ -10,6 +13,8 @@ public class Order extends Customer{
     private double total;
     private Date orderDate;
     private int customerId, addressID, discountId;
+    static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    private Scanner sc = new Scanner(System.in);
 
     public Order() {
     }
@@ -126,8 +131,24 @@ public class Order extends Customer{
                 ", discountId=" + discountId +
                 '}';
     }
+
+    public void input() throws ParseException {
+        System.out.print("Enter order name: ");
+        name = sc.nextLine();
+        System.out.print("Enter phone number: ");
+        phoneNumber = sc.nextLine();
+        System.out.print("Enter detail address: ");
+        detailAddress = sc.nextLine();
+        System.out.println("Enter order date(yyyy-MM-dd): ");
+        orderDate = df.parse(sc.nextLine());
+        System.out.print("Enter address id: ");
+        addressID = Integer.parseInt(sc.nextLine());
+        System.out.print("Enter discount id: ");
+        discountId = Integer.parseInt(sc.nextLine());
+    }
     public void output()
     {
         System.out.printf("\n%10d %30s %15s %30s %10s %15s %15d %30s %15s %10s",orderId,name,phoneNumber,detailAddress,total,orderDate,customerId,getFullName(),addressID,discountId);
+
     }
 }

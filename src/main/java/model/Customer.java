@@ -1,5 +1,6 @@
 package model;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class Customer {
@@ -80,7 +81,7 @@ public class Customer {
                 ", addressId=" + addressId +
                 '}';
     }
-    public void input(){
+    public void input() throws ParseException {
         System.out.println("Customer information:");
         System.out.print("Customer name:");
         fullName = scanner.nextLine();
