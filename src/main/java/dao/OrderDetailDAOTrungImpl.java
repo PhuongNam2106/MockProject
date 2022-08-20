@@ -1,6 +1,7 @@
 package dao;
 
 import model.OrderDetail;
+import model.Product;
 import util.DBUtil;
 
 import java.sql.Connection;
@@ -48,7 +49,7 @@ public class OrderDetailDAOTrungImpl implements OrderDetailDAO_trung {
     public double productPriceFinal(OrderDetail orderDetail) {
         try(Connection connection = DBUtil.getInstance().getConnection()){
             double ketqua = 0;
-            String productPriceFinal = "SELECT PRICE - DISCOUNT_PRICE FROM PRODUCT WHERE PRODUCT_ID =?";
+            String productPriceFinal = "SELECT PRICE - DISCOUNT_PRICE FROM PRODUCT WHERE PRODUCT_ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(productPriceFinal);
             preparedStatement.setInt(1, orderDetail.getProductId());
             ResultSet rs  = preparedStatement.executeQuery();
@@ -57,6 +58,30 @@ public class OrderDetailDAOTrungImpl implements OrderDetailDAO_trung {
             }
             return ketqua;
         }catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    @Override
+    public int updateStock(Product product) {
+        try (Connection connection = DBUtil.getInstance().getConnection()){
+            String sql = "UPDATE PRODUCT SET STOCK = (SELECT STOCK_AFTER FROM PRODUCT_AFTER_PRICE PAP WHERE PAP.PRODUCT_ID = PRODUCT.PRODUCT_ID) WHERE PRODUCT.PRODUCT_ID IN (SELECT PRODUCT_ID FROM ORDER_DETAIL)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            return preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    @Override
+    public int updateSold(Product product) {
+        try (Connection connection = DBUtil.getInstance().getConnection()){
+            String sql = "UPDATE PRODUCT SET SOLD = (SELECT SOLD_AFTER FROM PRODUCT_AFTER_PRICE PAP WHERE PAP.PRODUCT_ID = PRODUCT.PRODUCT_ID) WHERE PRODUCT.PRODUCT_ID IN (SELECT PRODUCT_ID FROM ORDER_DETAIL)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            return preparedStatement.executeUpdate();
+        } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }

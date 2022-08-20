@@ -1,9 +1,18 @@
 package model;
 
+import service.AddressService;
+import service.AddressServiceImpl;
+
 import java.text.ParseException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Customer {
+    public static void showTitle()
+    {
+        System.out.printf("%15s %30s %30s %15s %15s %10s \n","Address ID","City","District","Sub District","Postal Code","Delivery Fee");
+    }
+    private static final AddressService addressService = new AddressServiceImpl();
     private int customerId;
     private String fullName, email;
     private String phoneNumber;
@@ -82,13 +91,18 @@ public class Customer {
                 '}';
     }
     public void input() throws ParseException {
-        System.out.println("Customer information:");
+        System.out.println("--Customer Information--");
         System.out.print("Customer name:");
         fullName = scanner.nextLine();
         System.out.print("Customer email:");
         email = scanner.nextLine();
         System.out.print("Customer phone number:");
         phoneNumber = scanner.nextLine();
+        List<Address> addresses = addressService.showAll();
+        showTitle();
+        for (Address address : addresses) {
+            address.output();
+        }
         System.out.print("Customer address id:");
         addressId = scanner.nextInt();
     }

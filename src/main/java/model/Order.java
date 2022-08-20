@@ -1,11 +1,22 @@
 package model;
 
+import service.AddressService;
+import service.AddressServiceImpl;
+import service.ProductService;
+import service.ProductServiceImpl;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class Order extends Customer{
+    public static void showTitle()
+    {
+        System.out.printf("%15s %30s %30s %15s %15s %10s \n","Address ID","City","District","Sub District","Postal Code","Delivery Fee");
+    }
+    private static final AddressService addressService = new AddressServiceImpl();
     public int orderId;
     private String name;
     private String phoneNumber;
@@ -13,7 +24,6 @@ public class Order extends Customer{
     private double total;
     private Date orderDate;
     private int customerId, addressID, discountId;
-    static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     private Scanner sc = new Scanner(System.in);
 
     public Order() {
@@ -133,18 +143,22 @@ public class Order extends Customer{
     }
 
     public void input() throws ParseException {
+        System.out.println("--Order Information--");
         System.out.print("Enter order name: ");
         name = sc.nextLine();
         System.out.print("Enter phone number: ");
         phoneNumber = sc.nextLine();
-        System.out.print("Enter detail address: ");
-        detailAddress = sc.nextLine();
-        System.out.println("Enter order date(yyyy-MM-dd): ");
-        orderDate = df.parse(sc.nextLine());
+
+        List<Address> addresses = addressService.showAll();
+        showTitle();
+        for (Address address : addresses) {
+            address.output();
+        }
         System.out.print("Enter address id: ");
         addressID = Integer.parseInt(sc.nextLine());
-        System.out.print("Enter discount id: ");
-        discountId = Integer.parseInt(sc.nextLine());
+        System.out.print("Enter detail address: ");
+        detailAddress = sc.nextLine();
+
     }
     public void output()
     {

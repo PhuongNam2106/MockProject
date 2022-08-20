@@ -3,13 +3,13 @@ package model;
 public class Address {
     private int addressId;
     private String city, district, subDistrict;
-    private int postalCode;
+    private String postalCode;
     private double deliveryFee;
 
     public Address() {
     }
 
-    public Address(int addressId, String city, String district, String subDistrict, int postalCode, double deliveryFee) {
+    public Address(int addressId, String city, String district, String subDistrict, String postalCode, double deliveryFee) {
         this.addressId = addressId;
         this.city = city;
         this.district = district;
@@ -50,11 +50,11 @@ public class Address {
         this.subDistrict = subDistrict;
     }
 
-    public int getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(int postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
@@ -76,5 +76,10 @@ public class Address {
                 ", postalCode=" + postalCode +
                 ", deliveryFee=" + deliveryFee +
                 '}';
+    }
+    public void output()
+    {
+        System.out.printf("%15s %30s %30s %15s %15s %10s\n",addressId, city, district, subDistrict, postalCode, deliveryFee);
+
     }
 }

@@ -15,11 +15,11 @@ public class OrderDAOImpl_trung implements OrderDAO_trung {
             preparedStatement.setString(1, order.getName());
             preparedStatement.setString(2, order.getPhoneNumber());
             preparedStatement.setString(3, order.getDetailAddress());
-            preparedStatement.setDouble(4, finalTotalOrder(order));
-            preparedStatement.setDate(5, sqlDate = new java.sql.Date(order.getOrderDate().getTime()));
+            preparedStatement.setDouble(4, 0);
+            preparedStatement.setDate(5, sqlDate = new java.sql.Date(System.currentTimeMillis()));
             preparedStatement.setInt(6, customerID());
             preparedStatement.setInt(7, order.getAddressID());
-            preparedStatement.setInt(8, order.getDiscountId());
+            preparedStatement.setInt(8, 1);
             return preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,20 +46,41 @@ public class OrderDAOImpl_trung implements OrderDAO_trung {
         }
     }
 
+//TOTAL CHƯA TÍNH SHIP VÀ DISCOUNT
     @Override
-    public double finalTotalOrder(Order order) {
-        try(Connection connection = DBUtil.getInstance().getConnection()){
-            double ketqua = 0;
-            String productPriceFinal = "SELECT SUM(TOTAL) FROM ORDER_DETAIL GROUP BY ORDER_ID ";
-            PreparedStatement preparedStatement = connection.prepareStatement(productPriceFinal);
-            ResultSet rs  = preparedStatement.executeQuery();
-            while(rs.next()){
-                ketqua = rs.getInt(1);
-            }
-            return ketqua;
-        }catch (Exception e) {
+    public int saveTotal(Order order) {
+        try (Connection connection = DBUtil.getInstance().getConnection()){
+            String sql = "UPDATE ORDERS SET TOTAL = (SELECT TOTALSUM FROM TOTAL_SUM TS WHERE TS.ORDER_ID = ORDERS.ORDER_ID)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            return preparedStatement.executeUpdate();
+        } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
     }
+//TOTAL SAU KHI TINH SHIP VA DISCOUNT
+    @Override
+    public int finalTotal(Order order) {
+        try (Connection connection = DBUtil.getInstance().getConnection()){
+            String sql = "UPDATE ORDERS SET TOTAL = (SELECT TOTALFINAL FROM TOTALFINAL TF WHERE TF.ORDER_ID = ORDERS.ORDER_ID)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            return preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    @Override
+    public int updateDiscount(Order order) {
+        try (Connection connection = DBUtil.getInstance().getConnection()){
+            String sql = "UPDATE ORDERS SET DISCOUNT_ID = (SELECT DISCOUNT_ID FROM DISCOUNT WHERE ORDERS.ORDER_DATE >= DISCOUNT.START_DATE AND ORDERS.ORDER_DATE <= DISCOUNT.END_DATE  )";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            return preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }

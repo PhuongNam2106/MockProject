@@ -93,6 +93,7 @@ public class Main {
                     }while (crudMenu != 0);
                     break;
                 case 2:
+                    Product product = new Product();
                     Customer customer = new Customer();
                     Order order = new Order();
                     OrderDetail orderDetail = new OrderDetail();
@@ -104,11 +105,18 @@ public class Main {
                     do {
                         orderDetail.input();
                         ORDER_DETAIL_SERVICE_TRUNG.createOrderService(orderDetail);
+                        ORDER_DETAIL_SERVICE_TRUNG.updateStock(product);
+                        ORDER_DETAIL_SERVICE_TRUNG.updateSold(product);
                         System.out.println("Do you want to continue? Y/N");
                         ans = scanner.nextLine();
                     }while (!ans.equals("N") && !ans.equals("n"));
+                    ORDER_SERVICE_TRUNG.saveTotal(order);
+                    ORDER_SERVICE_TRUNG.updateDiscount(order);
+                    ORDER_SERVICE_TRUNG.updateTotalFinal(order);
+
                     break;
                 case 3:
+
                     orderService.showOrder();
                 case 0: break;
 

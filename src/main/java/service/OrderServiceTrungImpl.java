@@ -10,4 +10,19 @@ public class OrderServiceTrungImpl implements OrderService_trung {
     public boolean createOrder(Order order) {
         return orderDAOTrung.save(order) > 0;
     }
+
+    @Override
+    public boolean saveTotal(Order order) {
+        return orderDAOTrung.saveTotal(order) > 0;
+    }
+
+    @Override
+    public boolean updateDiscount(Order order) {
+        return orderDAOTrung.updateDiscount(order) > 0;
+    }
+
+    @Override
+    public boolean updateTotalFinal(Order order) {
+        return orderDAOTrung.finalTotal(order) > 0;
+    }
 }
